@@ -1,0 +1,8 @@
+<% if @warning %>
+	<p style="color: red"> Please input a new name for your Pokemon </p>
+<% end %>
+
+<%= form_for @pokemon do |p| %>
+  Name: <%= p.text_field :name %>
+  <%= p.submit %>
+<% end %>
