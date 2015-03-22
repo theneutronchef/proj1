@@ -3,15 +3,30 @@
 <p>Email: <%= @trainer.email if @trainer.email %></p>
 
 <h3>Pokemon</h3>
-<table class="table">
-<% @pokemon.each do |p| %>
-<tbody>
-	<tr>
-		<%= p.name %> <%= p.level %> <%= p.health %>
-		<%= button_to "Damage!", damage_path(id: p.id), :class => "button medium", :method => :patch %>
-	</tr>
-</tbody>
-<% end %>
 <% if @trainer.id == current_trainer.id %>
-	<%= link_to "Add Pokemon", new_pokemon_path() %>
+	<p> <%= link_to "Add Pokemon", new_pokemon_path() %> </p>
 <% end %>
+<table class="table">
+<tbody>
+	<% @pokemon.each do |p| %>
+	<tr>
+		<% if p.health <= 0 and @trainer.id != current_trainer.id %>
+			<!-- hide if health < 0 and viewing other trainer's pokemon -->
+		<% else %>
+			Name: <%= p.name %> <br>
+			Level: <%= p.level %> <br>
+			Health: <%= p.health %>
+			<% if @trainer.id == current_trainer.id %>
+				<%= button_to "Heal", heal_path(id: p.id), :class => "button small", :method => :patch %>
+			<% end %>
+			<% if p.health > 0 %>	
+				<%= button_to "Damage!", damage_path(id: p.id), :class => "button small", :method => :patch %>
+			<% end %>
+		<% end %>
+	</tr>
+	<% end %>
+</tbody>
+</table>
+
+
+

@@ -1,0 +1,4 @@
+<%= simple_form_for @pokemon do |p| %>
+  <%= p.input :name, collection: current_trainer.pokemon, label: "Choose your attacking Pokemon" %>
+  <%= p.button :submit %>
+<% end %>
